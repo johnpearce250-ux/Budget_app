@@ -1,12 +1,12 @@
 class Category():
-    def __init__(self, name):
+    def __init__(self, name):                                                   # Initialize the Category class with a name and an empty ledger
         self.name=name
         self.ledger=[]
     
-    def deposit(self, amount, description=""):
+    def deposit(self, amount, description=""):                                  # Add a deposit to the ledger with the specified amount and description
         self.ledger.append({"amount": amount, "description": description})
 
-    def withdraw(self, amount, description=""):
+    def withdraw(self, amount, description=""):                         # Check if there are sufficient funds and add a withdrawal to the ledger if possible
         balance=sum(item["amount"] for item in self.ledger)
         if balance>=amount:
             self.ledger.append({"amount": -amount, "description": description})
@@ -14,26 +14,26 @@ class Category():
         else:
             return False
         
-    def get_balance(self):
+    def get_balance(self):                                  # Calculate and return the current balance by summing the amounts in the ledger
         total=0
         for item in self.ledger:
             total+=item["amount"]
         return total
     
-    def transfer(self, amount, category):
+    def transfer(self, amount, category):               # Attempt to transfer funds from this category to another category by first withdrawing from this category and then depositing into the target category if the withdrawal is successful                                              
         if self.withdraw(amount, f"Transfer to {category.name}"):
             category.deposit(amount, f"Transfer from {self.name}")
             return True
         else:
             return False
     
-    def check_funds(self, amount):
+    def check_funds(self, amount):                           # Check if the specified amount is less than or equal to the current balance to determine if there are sufficient funds for a withdrawal or transfer
         if amount>self.get_balance():
             return False
         else:
             return True
     
-    def __str__(self):
+    def __str__(self):          # Create a string representation of the category, including the title, ledger entries, and total balance
         title=f"{self.name:*^30}\n"
         items=""
         for entry in self.ledger:
@@ -42,7 +42,7 @@ class Category():
         total=f"Total: {self.get_balance():.2f}"
         return title+items+total
 
-def create_spend_chart(categories):
+def create_spend_chart(categories):          # Generate a bar chart representing the percentage of total spending for each category, formatted as a string
     res="Percentage spent by category\n"
     spent=[]
     names=[]

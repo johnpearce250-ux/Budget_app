@@ -67,21 +67,7 @@ Generates text-based spending visualization:
         g     
 ```
 
-#### Parameters:
-- `categories`: List of `Category` objects
-## Example Usage```python# Create categoriesfood = Category("Food")
-clothing = Category("Clothing")
 
-# Add fundsfood.deposit(1000, "initial deposit")
-clothing.deposit(200)
-
-# Transactionsfood.withdraw(75, "groceries")
-clothing.withdraw(25, "shirt")
-
-# Transferfood.transfer(50, clothing)
-
-# Generate reportsprint(food)
-print(create_spend_chart([food, clothing]))
 ```
 
 ## Key Implementation Notes
